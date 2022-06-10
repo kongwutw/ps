@@ -13,7 +13,7 @@ import ComHeader from '@/components/ComHeader.vue';
   html,
   body,
   #app {
-    background: #F5F5F5;
+    background-color: #4b3e51;
     width: 100%;
     height: 100%;
     margin: 0;

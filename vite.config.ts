@@ -5,7 +5,11 @@ import nestPlugin from 'postcss-nested';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue({
+    script: {
+      refTransform: true,
+    },
+  })],
   resolve: {
     alias: {
       "@": "/src"

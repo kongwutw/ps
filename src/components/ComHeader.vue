@@ -1,11 +1,17 @@
 <script setup lang="ts">
+import Menu from '@/components/Menu.vue';
 
+let isShow = $ref(false);
+
+const onClick = () => {
+  isShow = !isShow;
+}
 </script>
 
 <template>
   <div class="header-ctn">
     <div class="left-group">
-      <button>文件</button>
+      <button @click="onClick">文件</button>
       <button>编辑</button>
       <button>图像</button>
       <button>图层</button>
@@ -19,6 +25,7 @@
       <div>kongwu</div>
     </div>
   </div>
+  <Menu v-show="isShow" />
 </template>
 
 <style lang="postcss" scoped>
