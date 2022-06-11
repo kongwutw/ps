@@ -1,6 +1,31 @@
 <script setup lang="ts">
+import bus from '@/bus';
+
 const onClick = () => {
   alert('被点击了~')
+}
+
+const addImg = () => {
+  const uploadInputDom = document.createElement('input');
+  uploadInputDom.type = 'file';
+  uploadInputDom.id = 'uploadInput';
+  uploadInputDom.style.display = 'none';
+  document.body.appendChild(uploadInputDom);
+  uploadInputDom.click();
+  uploadInputDom.addEventListener('change', (event: any) => {
+    event.stopPropagation();
+    event.preventDefault();
+    const file: any = event.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = function (e: any) {
+      const { result } = e.target;
+      bus.emit('addLocalImg', result);
+      bus.emit('closeMenu');
+      uploadInputDom.remove();
+    };
+  });
+
 }
 </script>
 
@@ -9,7 +34,7 @@ const onClick = () => {
       <button @click="onClick">新建</button>
       <button>打开</button>
       <button>保存</button>
-      <button>导入</button>
+      <button @click="addImg">导入</button>
       <button>导出</button>
     </div>
 </template>

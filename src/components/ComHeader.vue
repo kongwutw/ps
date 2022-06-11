@@ -1,11 +1,25 @@
 <script setup lang="ts">
+import { onMounted, onUnmounted } from 'vue';
 import Menu from '@/components/Menu.vue';
+
+import bus from '@/bus';
 
 let isShow = $ref(false);
 
 const onClick = () => {
   isShow = !isShow;
 }
+
+const closeMenu = () => {
+  isShow = false;
+}
+
+bus.on('closeMenu', closeMenu);
+
+onUnmounted(() => {
+  bus.off('closeMenu', closeMenu);
+});
+
 </script>
 
 <template>
@@ -22,7 +36,8 @@ const onClick = () => {
     </div>
     <div class="right-group">
       <img src="https://kongwutw.github.io/blog/logo.png" width="20" height="20"/>
-      <div>kongwu</div>
+      <div style="margin-right: 12px;">kongwu</div>
+      <a href="https://github.com/kongwutw/ps" target="blank" style="color: #fff; text-decoration-line: none; ">GitHub</a>
     </div>
   </div>
   <Menu v-show="isShow" />
@@ -37,6 +52,7 @@ const onClick = () => {
   justify-content: space-between;
   align-items: center;
   font-size: 13px;
+  border-bottom: #333 1px solid;
 
   .left-group {
     display: flex;
